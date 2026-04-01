@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sierra Auto Restorations | Classic & Custom Car Restoration | Sonora, CA</title>
+  <meta name="description" content="Sierra Auto Restorations - Family owned classic and custom car restoration shop in Sonora, CA. 40+ years experience. Specializing in Corvettes, show quality paint, engine rebuilds, and full frame-off restorations.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: '#C41E1E',
+              darkred: '#8B1515',
+              black: '#0A0A0A',
+              charcoal: '#1A1A1A',
+              steel: '#2A2A2A',
+              smoke: '#3A3A3A',
+              silver: '#B8B8B8',
+              cream: '#F5F0E8',
+            }
+          },
+          fontFamily: {
+            display: ['Playfair Display', 'serif'],
+            body: ['Outfit', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Outfit', sans-serif; background: #0A0A0A; color: #F5F0E8; overflow-x: hidden; }
+
+    /* Noise texture overlay */
+    .noise::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0A0A0A; }
+    ::-webkit-scrollbar-thumb { background: #C41E1E; border-radius: 4px; }
+
+    /* Hero parallax-like gradient */
+    .hero-gradient {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(196,30,30,0.15) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(139,21,21,0.1) 0%, transparent 60%),
+        linear-gradient(180deg, #0A0A0A 0%, #1A1A1A 100%);
+    }
+
+    /* Image hover effects */
+    .gallery-item {
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-item img {
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(10,10,10,0.7) 100%);
+      transition: opacity 0.5s ease;
+    }
+    .gallery-item:hover::after {
+      opacity: 0.6;
+    }
+
+    /* Layered shadows */
+    .shadow-layered {
+      box-shadow:
+        0 2px 4px rgba(196,30,30,0.05),
+        0 8px 24px rgba(0,0,0,0.4),
+        0 24px 48px rgba(0,0,0,0.3);
+    }
+
+    .shadow-card {
+      box-shadow:
+        0 1px 2px rgba(196,30,30,0.06),
+        0 4px 12px rgba(0,0,0,0.3),
+        0 16px 32px rgba(0,0,0,0.2);
+    }
+
+    /* Divider line */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(196,30,30,0.4), transparent);
+    }
+
+    /* Reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered delay classes */
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+
+    /* Nav transparency */
+    .nav-scrolled {
+      background: rgba(10,10,10,0.95) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 rgba(196,30,30,0.2);
+    }
+
+    /* Button styles */
+    .btn-primary {
+      background: linear-gradient(135deg, #C41E1E 0%, #8B1515 100%);
+      transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+      box-shadow: 0 4px 16px rgba(196,30,30,0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(196,30,30,0.45);
+    }
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(196,30,30,0.3);
+    }
+    .btn-primary:focus-visible {
+      outline: 2px solid #C41E1E;
+      outline-offset: 3px;
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(196,30,30,0.5);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .btn-outline:hover {
+      border-color: #C41E1E;
+      background: rgba(196,30,30,0.08);
+      transform: translateY(-2px);
+    }
+    .btn-outline:active {
+      transform: translateY(0);
+    }
+    .btn-outline:focus-visible {
+      outline: 2px solid #C41E1E;
+      outline-offset: 3px;
+    }
+
+    /* Service card hover */
+    .service-card {
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+      background: linear-gradient(145deg, #1A1A1A 0%, #151515 100%);
+      border: 1px solid rgba(196,30,30,0.08);
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(196,30,30,0.12), 0 16px 48px rgba(0,0,0,0.4);
+      border-color: rgba(196,30,30,0.2);
+    }
+
+    /* Red accent line */
+    .accent-line {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #C41E1E, #8B1515);
+      border-radius: 2px;
+    }
+
+    /* Gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 280px;
+      gap: 6px;
+    }
+    .gallery-grid .span-2 {
+      grid-column: span 2;
+    }
+    .gallery-grid .tall {
+      grid-row: span 2;
+    }
+
+    @media (max-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 200px;
+      }
+      .gallery-grid .span-2 {
+        grid-column: span 1;
+      }
+      .gallery-grid .tall {
+        grid-row: span 1;
+      }
+    }
+
+    /* Map embed styling */
+    .map-wrapper {
+      border: 1px solid rgba(196,30,30,0.15);
+      overflow: hidden;
+    }
+    .map-wrapper iframe {
+      filter: grayscale(0.8) contrast(1.1) brightness(0.7);
+      transition: filter 0.5s ease;
+    }
+    .map-wrapper:hover iframe {
+      filter: grayscale(0.3) contrast(1) brightness(0.85);
+    }
+
+    /* Mobile nav */
+    .mobile-nav {
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .mobile-nav.open {
+      transform: translateX(0);
+    }
+
+    /* Heading tracking */
+    .heading-tight { letter-spacing: -0.03em; }
+    .body-relaxed { line-height: 1.7; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" style="background: transparent;">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="#home" class="flex items-center gap-3 group">
+          <img src="brand_assets/logo.avif" alt="Sierra Auto Restorations" class="h-12 w-auto">
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-10">
+          <a href="#home" class="font-body text-sm font-medium tracking-wider uppercase text-brand-silver hover:text-brand-red transition-colors duration-300">Home</a>
+          <a href="#about" class="font-body text-sm font-medium tracking-wider uppercase text-brand-silver hover:text-brand-red transition-colors duration-300">About</a>
+          <a href="#services" class="font-body text-sm font-medium tracking-wider uppercase text-brand-silver hover:text-brand-red transition-colors duration-300">Services</a>
+          <a href="#gallery" class="font-body text-sm font-medium tracking-wider uppercase text-brand-silver hover:text-brand-red transition-colors duration-300">Gallery</a>
+          <a href="#contact" class="font-body text-sm font-medium tracking-wider uppercase text-brand-silver hover:text-brand-red transition-colors duration-300">Contact</a>
+          <a href="tel:2095339070" class="btn-primary px-6 py-2.5 rounded-sm font-body text-sm font-semibold text-white tracking-wider uppercase">(209) 533-9070</a>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button id="menuToggle" class="md:hidden flex flex-col gap-1.5 p-2 group" aria-label="Toggle menu">
+          <span class="block w-6 h-0.5 bg-brand-silver group-hover:bg-brand-red transition-colors duration-300"></span>
+          <span class="block w-6 h-0.5 bg-brand-silver group-hover:bg-brand-red transition-colors duration-300"></span>
+          <span class="block w-4 h-0.5 bg-brand-silver group-hover:bg-brand-red transition-colors duration-300"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav Overlay -->
+  <div id="mobileNav" class="mobile-nav fixed inset-0 z-50 bg-brand-black/98 flex flex-col items-center justify-center gap-8">
+    <button id="menuClose" class="absolute top-6 right-6 p-2 text-brand-silver hover:text-brand-red transition-colors" aria-label="Close menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <a href="#home" class="mobile-link font-display text-3xl text-brand-cream hover:text-brand-red transition-colors">Home</a>
+    <a href="#about" class="mobile-link font-display text-3xl text-brand-cream hover:text-brand-red transition-colors">About</a>
+    <a href="#services" class="mobile-link font-display text-3xl text-brand-cream hover:text-brand-red transition-colors">Services</a>
+    <a href="#gallery" class="mobile-link font-display text-3xl text-brand-cream hover:text-brand-red transition-colors">Gallery</a>
+    <a href="#contact" class="mobile-link font-display text-3xl text-brand-cream hover:text-brand-red transition-colors">Contact</a>
+    <a href="tel:2095339070" class="btn-primary mt-4 px-8 py-3 rounded-sm font-body text-lg font-semibold text-white">(209) 533-9070</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section id="home" class="relative min-h-screen flex items-center hero-gradient noise">
+    <div class="absolute inset-0 z-0">
+      <img src="images/corvette-road.jpeg" alt="Classic Corvette on open road" class="w-full h-full object-cover opacity-25" style="object-position: center 40%;">
+      <div class="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/80 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-brand-black/40"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32">
+      <div class="max-w-3xl">
+        <div class="accent-line mb-8 reveal"></div>
+        <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-900 heading-tight text-brand-cream mb-6 reveal delay-1">
+          Restoration<br>
+          <span class="italic text-brand-red">Perfected.</span>
+        </h1>
+        <p class="font-body text-lg md:text-xl text-brand-silver body-relaxed max-w-xl mb-10 reveal delay-2">
+          A family-owned classic and custom car restoration shop in Sonora, California. Over 40 years of bringing automotive dreams back to life.
+        </p>
+        <div class="flex flex-wrap gap-4 reveal delay-3">
+          <a href="#services" class="btn-primary px-8 py-3.5 rounded-sm font-body text-sm font-semibold text-white tracking-wider uppercase">Our Services</a>
+          <a href="#contact" class="btn-outline px-8 py-3.5 rounded-sm font-body text-sm font-semibold text-brand-silver tracking-wider uppercase">Get in Touch</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 reveal delay-4">
+      <div class="w-5 h-9 rounded-full border border-brand-silver/30 flex items-start justify-center p-1.5">
+        <div class="w-1 h-2 bg-brand-red rounded-full" style="animation: scrollBounce 2s infinite;"></div>
+      </div>
+    </div>
+    <style>
+      @keyframes scrollBounce {
+        0%, 100% { transform: translateY(0); opacity: 1; }
+        50% { transform: translateY(8px); opacity: 0.3; }
+      }
+    </style>
+  </section>
+
+  <!-- Divider -->
+  <div class="divider"></div>
+
+  <!-- About Section -->
+  <section id="about" class="relative py-24 lg:py-32 noise" style="background: linear-gradient(180deg, #0A0A0A 0%, #121212 50%, #0A0A0A 100%);">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Text -->
+        <div class="reveal">
+          <p class="font-body text-sm font-semibold tracking-widest uppercase text-brand-red mb-4">Est. 2000</p>
+          <h2 class="font-display text-4xl md:text-5xl font-bold heading-tight text-brand-cream mb-6">
+            Built on Passion,<br>Driven by <span class="italic text-brand-red">Craft</span>
+          </h2>
+          <div class="accent-line mb-8"></div>
+          <p class="font-body text-brand-silver body-relaxed mb-6">
+            With 40 years in custom and classic car restorations, owner Mark Cole has specialized in show quality paint jobs and full classic restoration. Sierra Auto Restoration has been serving its customers since 2000.
+          </p>
+          <p class="font-body text-brand-silver body-relaxed mb-6">
+            Our philosophy is simple: To build and help others build the finest driving classics and customs of our time. Mark has been an avid collector of these classics since his youth and has made it his passion to bring these old timers back to life!
+          </p>
+          <p class="font-body text-brand-silver body-relaxed mb-6">
+            Bring your cob web infested, rusted classic in for a complete make over. We are set up for engine rebuilds, transmission, chassis and custom fabrication. Don't feel that the car has to be a classic for us to work on it, we take in new sport cars for custom paint and any upgrade you would like!
+          </p>
+          <p class="font-body text-brand-silver body-relaxed mb-6">
+            We anxiously await the opportunity to assist you with your next project, whether it be just a few parts, or your sentimental car that has been passed down through generations.
+          </p>
+          <p class="font-body text-brand-silver/70 italic body-relaxed">
+            Thank you for visiting.
+          </p>
+        </div>
+
+        <!-- Image collage -->
+        <div class="relative reveal delay-2">
+          <div class="grid grid-cols-2 gap-3">
+            <div class="gallery-item rounded-sm overflow-hidden shadow-layered">
+              <img src="images/nova-silver.jpeg" alt="Restored 1967 Chevy Nova SS" class="w-full h-56 object-cover">
+            </div>
+            <div class="gallery-item rounded-sm overflow-hidden shadow-layered mt-8">
+              <img src="images/cobra-silver.jpeg" alt="Shelby Cobra replica" class="w-full h-56 object-cover">
+            </div>
+            <div class="gallery-item rounded-sm overflow-hidden shadow-layered col-span-2">
+              <img src="images/gto-red.jpeg" alt="Restored red Pontiac GTO" class="w-full h-52 object-cover" style="object-position: center 30%;">
+            </div>
+          </div>
+          <!-- Decorative accent -->
+          <div class="absolute -bottom-4 -right-4 w-32 h-32 border border-brand-red/20 rounded-sm -z-10"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="divider"></div>
+
+  <!-- Services Section -->
+  <section id="services" class="relative py-24 lg:py-32 noise" style="background: #0A0A0A;">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Section header -->
+      <div class="text-center mb-20 reveal">
+        <p class="font-body text-sm font-semibold tracking-widest uppercase text-brand-red mb-4">What We Do</p>
+        <h2 class="font-display text-4xl md:text-5xl font-bold heading-tight text-brand-cream mb-6">Our Services</h2>
+        <div class="accent-line mx-auto"></div>
+      </div>
+
+      <!-- Intro text -->
+      <p class="font-body text-brand-silver body-relaxed text-center max-w-3xl mx-auto mb-16 reveal">
+        We offer a wide variety of services to meet your needs. Please contact us for more details and we will steer you in the right direction to get your restoration started!
+      </p>
+
+      <!-- Service cards -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <!-- Restoration -->
+        <div class="service-card rounded-sm p-8 reveal delay-1">
+          <div class="w-12 h-12 flex items-center justify-center rounded-sm bg-brand-red/10 mb-6">
+            <svg class="w-6 h-6 text-brand-red" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 11-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852z"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-bold text-brand-cream mb-3">Complete Restorations</h3>
+          <p class="font-body text-brand-silver body-relaxed text-sm">
+            Full frame-off nut and bolt restorations. Whether you want a nice driver or a concours quality show car, we bring your classic back to its original glory.
+          </p>
+        </div>
+
+        <!-- Detailing -->
+        <div class="service-card rounded-sm p-8 reveal delay-2">
+          <div class="w-12 h-12 flex items-center justify-center rounded-sm bg-brand-red/10 mb-6">
+            <svg class="w-6 h-6 text-brand-red" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-bold text-brand-cream mb-3">Detailing</h3>
+          <p class="font-body text-brand-silver body-relaxed text-sm">
+            Show quality paint jobs and meticulous detailing to make your vehicle stand out. From full paint correction to concours-level finish work.
+          </p>
+        </div>
+
+        <!-- Maintenance -->
+        <div class="service-card rounded-sm p-8 reveal delay-3">
+          <div class="w-12 h-12 flex items-center justify-center rounded-sm bg-brand-red/10 mb-6">
+            <svg class="w-6 h-6 text-brand-red" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17l-5.384 3.065A1 1 0 014.5 17.309V6.691a1 1 0 011.536-.926L11.42 8.83m0 6.34V8.83m0 6.34l4.616 2.63A1 1 0 0017.5 16.874V7.126a1 1 0 00-1.464-.926L11.42 8.83"/><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L18 12l2.25 7.5m-4.5 0h4.5"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-bold text-brand-cream mb-3">Maintenance</h3>
+          <p class="font-body text-brand-silver body-relaxed text-sm">
+            Keep your classic running smooth with ongoing maintenance. Engine rebuilds, transmission work, tune-ups, and drivetrain service.
+          </p>
+        </div>
+
+        <!-- Upgrades -->
+        <div class="service-card rounded-sm p-8 reveal delay-4">
+          <div class="w-12 h-12 flex items-center justify-center rounded-sm bg-brand-red/10 mb-6">
+            <svg class="w-6 h-6 text-brand-red" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-bold text-brand-cream mb-3">Upgrades</h3>
+          <p class="font-body text-brand-silver body-relaxed text-sm">
+            Performance and aesthetic upgrades for classic and modern vehicles. Suspension, brakes, engine swaps, and custom enhancements.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Modifications -->
+        <div class="service-card rounded-sm p-8 reveal delay-1">
+          <div class="w-12 h-12 flex items-center justify-center rounded-sm bg-brand-red/10 mb-6">
+            <svg class="w-6 h-6 text-brand-red" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-bold text-brand-cream mb-3">Modifications</h3>
+          <p class="font-body text-brand-silver body-relaxed text-sm">
+            Custom fabrication and modifications to make your vision a reality. Frame swaps, chassis work, custom brackets, and one-of-a-kind builds.
+          </p>
+        </div>
+
+        <!-- Transport / Shipping -->
+        <div class="service-card rounded-sm p-8 reveal delay-2">
+          <div class="w-12 h-12 flex items-center justify-center rounded-sm bg-brand-red/10 mb-6">
+            <svg class="w-6 h-6 text-brand-red" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0H21a.75.75 0 00.75-.75v-3.375a.75.75 0 00-.218-.53l-3.75-3.75a.75.75 0 00-.53-.22H15V5.25A2.25 2.25 0 0012.75 3h-6A2.25 2.25 0 004.5 5.25v8.625"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-bold text-brand-cream mb-3">Transport / Shipping</h3>
+          <p class="font-body text-brand-silver body-relaxed text-sm">
+            We deliver door to door! We offer door to door auto delivery and pick up within California. We have open and enclosed trailers to support the need of your car.
+          </p>
+        </div>
+
+        <!-- Free Estimates -->
+        <div class="service-card rounded-sm p-8 reveal delay-3">
+          <div class="w-12 h-12 flex items-center justify-center rounded-sm bg-brand-red/10 mb-6">
+            <svg class="w-6 h-6 text-brand-red" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-bold text-brand-cream mb-3">Free Estimates</h3>
+          <p class="font-body text-brand-silver body-relaxed text-sm">
+            Not sure where to start? Contact us for a free estimate. We'll walk you through the process and help you plan your restoration project.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="divider"></div>
+
+  <!-- Gallery Section -->
+  <section id="gallery" class="relative py-24 lg:py-32 noise" style="background: linear-gradient(180deg, #0A0A0A 0%, #0E0E0E 50%, #0A0A0A 100%);">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Section header -->
+      <div class="text-center mb-16 reveal">
+        <p class="font-body text-sm font-semibold tracking-widest uppercase text-brand-red mb-4">Our Work</p>
+        <h2 class="font-display text-4xl md:text-5xl font-bold heading-tight text-brand-cream mb-6">Gallery</h2>
+        <div class="accent-line mx-auto"></div>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="gallery-grid reveal delay-1">
+        <div class="gallery-item span-2 rounded-sm">
+          <img src="images/corvette-road.jpeg" alt="Red Corvette Stingray on the road" class="w-full h-full object-cover">
+        </div>
+        <div class="gallery-item rounded-sm">
+          <img src="images/gto-red.jpeg" alt="Red Pontiac GTO at car show" class="w-full h-full object-cover">
+        </div>
+        <div class="gallery-item rounded-sm">
+          <img src="images/nova-silver.jpeg" alt="Silver 1967 Chevy Nova SS" class="w-full h-full object-cover">
+        </div>
+        <div class="gallery-item rounded-sm">
+          <img src="images/challenger-green-shop.jpeg" alt="Green Dodge Challenger in shop" class="w-full h-full object-cover">
+        </div>
+        <div class="gallery-item rounded-sm">
+          <img src="images/challenger-green.jpeg" alt="Green Dodge Challenger completed" class="w-full h-full object-cover">
+        </div>
+        <div class="gallery-item rounded-sm">
+          <img src="images/cobra-silver.jpeg" alt="Silver Shelby Cobra replica" class="w-full h-full object-cover">
+        </div>
+        <div class="gallery-item span-2 rounded-sm">
+          <img src="images/corvette-plane.jpeg" alt="Red Corvette with P-51 Mustang" class="w-full h-full object-cover">
+        </div>
+        <div class="gallery-item rounded-sm">
+          <img src="images/woody-wagon.jpeg" alt="Custom Chevy woody wagon at sunset" class="w-full h-full object-cover" style="object-position: center 60%;">
+        </div>
+        <div class="gallery-item rounded-sm">
+          <img src="images/corvette-show.jpeg" alt="Red Corvette at car show" class="w-full h-full object-cover">
+        </div>
+        <div class="gallery-item rounded-sm">
+          <img src="images/nova-badge.jpeg" alt="Nova SS badge close-up" class="w-full h-full object-cover">
+        </div>
+        <div class="gallery-item rounded-sm">
+          <img src="images/nova-front.jpeg" alt="Silver Chevy Nova front view" class="w-full h-full object-cover">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="divider"></div>
+
+  <!-- Corvette Specialty Banner -->
+  <section class="relative py-20 overflow-hidden noise">
+    <div class="absolute inset-0">
+      <img src="images/corvette-plane.jpeg" alt="Corvette with P-51" class="w-full h-full object-cover opacity-20">
+      <div class="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/90 to-brand-black/70"></div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center reveal">
+      <p class="font-body text-sm font-semibold tracking-widest uppercase text-brand-red mb-4">Every Make. Every Era.</p>
+      <h2 class="font-display text-3xl md:text-5xl font-bold heading-tight text-brand-cream mb-6">
+        Classics, Customs &amp; <span class="italic text-brand-red">Beyond</span>
+      </h2>
+      <p class="font-body text-brand-silver body-relaxed max-w-2xl mx-auto mb-8">
+        From Corvettes and Camaros to Mustangs, Mopars, and everything in between — we work on all makes and models. Whether it's a frame-off show car or a modern sport car needing custom paint, we have the skill and experience to bring your vision to life.
+      </p>
+      <a href="#contact" class="btn-primary inline-block px-10 py-4 rounded-sm font-body text-sm font-semibold text-white tracking-wider uppercase">Start Your Project</a>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="divider"></div>
+
+  <!-- Contact Section -->
+  <section id="contact" class="relative py-24 lg:py-32 noise" style="background: #0A0A0A;">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Section header -->
+      <div class="text-center mb-20 reveal">
+        <p class="font-body text-sm font-semibold tracking-widest uppercase text-brand-red mb-4">Get in Touch</p>
+        <h2 class="font-display text-4xl md:text-5xl font-bold heading-tight text-brand-cream mb-6">Contact Us</h2>
+        <div class="accent-line mx-auto"></div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12">
+        <!-- Contact Info -->
+        <div class="reveal">
+          <div class="space-y-8">
+            <!-- Address -->
+            <div class="flex gap-5">
+              <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-sm bg-brand-red/10">
+                <svg class="w-5 h-5 text-brand-red" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+              </div>
+              <div>
+                <h3 class="font-display text-lg font-bold text-brand-cream mb-1">Location</h3>
+                <p class="font-body text-brand-silver">20065-B Hwy 108</p>
+                <p class="font-body text-brand-silver">Sonora, CA 95370</p>
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="flex gap-5">
+              <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-sm bg-brand-red/10">
+                <svg class="w-5 h-5 text-brand-red" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+              </div>
+              <div>
+                <h3 class="font-display text-lg font-bold text-brand-cream mb-1">Phone</h3>
+                <a href="tel:2095339070" class="font-body text-brand-silver hover:text-brand-red transition-colors duration-300">(209) 533-9070</a>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="flex gap-5">
+              <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-sm bg-brand-red/10">
+                <svg class="w-5 h-5 text-brand-red" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+              </div>
+              <div>
+                <h3 class="font-display text-lg font-bold text-brand-cream mb-1">Email</h3>
+                <a href="mailto:markvette427@yahoo.com" class="font-body text-brand-silver hover:text-brand-red transition-colors duration-300">markvette427@yahoo.com</a>
+              </div>
+            </div>
+
+            <!-- Hours -->
+            <div class="flex gap-5">
+              <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-sm bg-brand-red/10">
+                <svg class="w-5 h-5 text-brand-red" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <h3 class="font-display text-lg font-bold text-brand-cream mb-1">Hours</h3>
+                <p class="font-body text-brand-silver">Monday – Friday: 7:00 AM – 4:30 PM</p>
+                <p class="font-body text-brand-silver/50">Closed Saturday & Sunday</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="reveal delay-2">
+          <div class="map-wrapper rounded-sm overflow-hidden shadow-layered" style="height: 400px;">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3127.5!2d-120.3816!3d37.9797!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80919b74f4e73a1d%3A0x9c4c8b79a81bfba!2s20065+CA-108%2C+Sonora%2C+CA+95370!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+              width="100%"
+              height="100%"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+          <a href="https://maps.google.com/?q=20065+CA-108,+Sonora,+CA+95370" target="_blank" rel="noopener noreferrer" class="btn-outline inline-block mt-4 px-6 py-2.5 rounded-sm font-body text-sm font-semibold text-brand-silver tracking-wider uppercase text-center w-full">
+            Open in Google Maps
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/5" style="background: #070707;">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <img src="brand_assets/logo.avif" alt="Sierra Auto Restorations" class="h-10 w-auto">
+        </div>
+        <div class="flex items-center gap-8">
+          <a href="#home" class="font-body text-xs font-medium tracking-wider uppercase text-brand-silver/60 hover:text-brand-red transition-colors duration-300">Home</a>
+          <a href="#about" class="font-body text-xs font-medium tracking-wider uppercase text-brand-silver/60 hover:text-brand-red transition-colors duration-300">About</a>
+          <a href="#services" class="font-body text-xs font-medium tracking-wider uppercase text-brand-silver/60 hover:text-brand-red transition-colors duration-300">Services</a>
+          <a href="#gallery" class="font-body text-xs font-medium tracking-wider uppercase text-brand-silver/60 hover:text-brand-red transition-colors duration-300">Gallery</a>
+          <a href="#contact" class="font-body text-xs font-medium tracking-wider uppercase text-brand-silver/60 hover:text-brand-red transition-colors duration-300">Contact</a>
+        </div>
+        <p class="font-body text-xs text-brand-silver/40">
+          &copy; EST. 2000 Sierra Auto Restorations. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        navbar.classList.add('nav-scrolled');
+      } else {
+        navbar.classList.remove('nav-scrolled');
+      }
+    });
+
+    // Mobile nav toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const menuClose = document.getElementById('menuClose');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    menuToggle.addEventListener('click', () => mobileNav.classList.add('open'));
+    menuClose.addEventListener('click', () => mobileNav.classList.remove('open'));
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => mobileNav.classList.remove('open'));
+    });
+
+    // Scroll reveal
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    revealElements.forEach(el => observer.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
